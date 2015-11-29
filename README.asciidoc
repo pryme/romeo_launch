@@ -1,0 +1,53 @@
+:imagesdir: ./images
+:toc: macro
+
+# romeo_launch
+
+Launch scripts for the ROS Romeo robot.
+
+== Launching &ldquo;Standalone&rdquo; &ndash; on a Single Machine
+
+The script `romeo_standalone.launch` will launch these nodes on the current machine:
+
+. `rosserial_python serial_node.py` to communicate with the Arduino.
+. `differential_drive diff_tf.py` to convert wheel encoder data to odometry and pose.
+. `differential_drive virtual_joystick.py` to provide a mouse-controlled joystick to generate twist requests.
+. `differential_drive twist_to_motors.py` to convert twist to desired motor speeds.
+
+== Launching &ldquo;Distributed&rdquo; &ndash; on a Laptop and the Robot
+
+=== Network Setup
+
+Nodes on the laptop and robot, and `roscore` on the robot have to be able to communicate with each
+other. This requires following the rules in http://wiki.ros.org/ROS/NetworkSetup. In particular, both
+the laptop and the robot must have hostnames that are resolvable by the other. You can do this by
+editing `/etc/hosts`, by giving them real DNS names, or by using mDNS (Bonjour). I've done the latter,
+by installing `avahi-daemon` on the RPi. The hostnames of my laptop and robot resolve as `hostname.local`.
+
+=== Environment Setup
+
+Environment variables must be set up on both machines as follows.
+
+. Robot (Raspberry Pi)
+----
+export ROS_HOSTNAME=hostname-of-the-robot
+export ROS_MASTER_URI=http://hostname-of-the-robot:port-number
+----
+
+You can choose any free port number.
+
+. Laptop
+----
+export ROS_HOSTNAME=hostname-of-the-laptop
+export ROS_MASTER_URI=http://hostname-of-the-robot:port-number
+----
+
+=== Launching the Nodes
+
+The goal is to have a single launch script to be run on a laptop that will spawn nodes on both
+the laptop and robot for navigation and monitoring. However, as of now I cannot get the distributed
+launch to work. So there are two steps:
+
+. On the robot, launch roscore and `roslaunch romeo_distributed.py`. (This script is misnamed since it
+only runs nodes on one machine, the robot.)
+. On the laptop, run `roslaunch romeo_joystick.py` to get the mouse-controlled joystick.
