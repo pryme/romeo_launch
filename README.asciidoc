@@ -28,7 +28,7 @@ by installing `avahi-daemon` on the RPi. The hostnames of my laptop and robot re
 
 Environment variables must be set up on both machines as follows.
 
-. Robot (Raspberry Pi)
+.Robot (Raspberry Pi)
 ----
 export ROS_HOSTNAME=hostname-of-the-robot
 export ROS_MASTER_URI=http://hostname-of-the-robot:port-number
@@ -36,7 +36,7 @@ export ROS_MASTER_URI=http://hostname-of-the-robot:port-number
 
 You can choose any free port number.
 
-. Laptop
+.Laptop
 ----
 export ROS_HOSTNAME=hostname-of-the-laptop
 export ROS_MASTER_URI=http://hostname-of-the-robot:port-number
