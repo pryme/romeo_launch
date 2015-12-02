@@ -53,7 +53,7 @@
     <param name="baud" value="57600" />
     <param name="port" value="$(arg tty)" />
     <param name="control_rate" value="100" />
-    <param name="vtarget_timeout" value="1000" />
+    <param name="vtarget_timeout" value="0.1" />
     <param name="Kp" value="$(arg Kp)" />
     <param name="Ki" value="$(arg Ki)" />
     <param name="Kd" value="$(arg Kd)" />
