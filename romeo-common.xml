@@ -20,19 +20,23 @@
 
   <!-- PID control parameters.
 
-    These were determined using the Ziegler-Nichols method by increasing
-    the proportional constant (Ku) until oscillation occurred and measuring
-    the oscillation period (Tu).
+    These were determined using the Good-Gain method.
+    See http://home.hit.no/~hansha/documents/control/theory/tuning_pid_controller.pdf.
+    Using an initial Kp0=0.6, the time between the first overshoot and the
+    first undershoot was found to be about Tou=0.144 sec.
 
- Ku = .11;
- Tu = .20;
- Kp = 0.6*Ku = .066
- Ki = 2*Kp/Tu = .66
- Kd = Kp*Tu/8 = .00165
+    The Good-Gain recommendations are, then to set:
+        Kp = 80% * Kp0 = 0.048
+        Ti = 1.5 * Tou = 0.215
+        Td = Ti/4 = 0.0538
+
+    where the constants are derived from the time constants as follows:
+        Ki = Kp0/Ti
+        Kd = Kp0*Td
   -->
-  <arg name="Kp" value="0.066" />
-  <arg name="Ki" value="0.66" />
-  <arg name="Kd" value="0.00165" />
+  <arg name="Kp" value="0.048" />
+  <arg name="Ki" value="0.279" />
+  <arg name="Kd" value="0.00323" />
 
   <param name="ticks_meter" value="$(arg ticks_per_meter)" />
 
