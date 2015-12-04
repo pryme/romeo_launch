@@ -1,54 +1,9 @@
 <launch>
 
-  <arg name="tty" default="/dev/ttyACM0" />
-
-  <!-- The number of encoder ticks per meter.
-    d = 0.060  wheel diameter
-    revolutions/meter = 1/(d*3.14159)
-    gear ratio = 46.8512 : 1 (from Pololu web site)
-    ticks/revolution = gear ratio * 48 cpr = 1124.43
-    ticks per meter = ticks/revolution * revolutions/meter = 5965.29
-  -->
-  <arg name="ticks_per_meter" value="5965" />
-
-  <!-- Wheel separation, in meters. -->
-  <arg name="wheel_separation" value=".203" />
-
-  <!-- PID control parameters.
-
-    These were determined using the Ziegler-Nichols method by increasing
-    the proportional constant (Ku) until oscillation occurred and measuring
-    the oscillation period (Tu).
-
-    Ku = 0.19
-    Tu = 0.23
-    Kp = 0.6*Ku = 0.114
-    Ki = 2*Kp/Tu = 0.9
-    Kd = Kp*Tu / 8 = 0.002976;
-  -->
-  <arg name="Kp" value="0.114" />
-  <arg name="Ki" value="0.9" />
-  <arg name="Kd" value="0.002976" />
-
-  <param name="ticks_meter" value="$(arg ticks_per_meter)" />
-
-  <node name="twist_to_motors" pkg="differential_drive" type="twist_to_motors.py">
-    <param name="base_width" value="$(arg wheel_separation)" />
-    <param name="rate" value="10" />
-  </node>
-
-  <node name="tf_publisher" pkg="differential_drive" type="diff_tf.py">
-    <param name="base_width" value="$(arg wheel_separation)" />
-  </node>
-
-  <node name="romeo" pkg="rosserial_python" type="serial_node.py">
-    <param name="baud" value="57600" />
-    <param name="port" value="$(arg tty)" />
-    <param name="control_rate" value="100" />
-    <param name="vtarget_timeout" value="0.1" />
-    <param name="Kp" value="$(arg Kp)" />
-    <param name="Ki" value="$(arg Ki)" />
-    <param name="Kd" value="$(arg Kd)" />
-  </node>
+  <include file="$(find romeo_launch)/romeo-common.xml">
+    <arg name="launch_joystick" value="false" />
+    <arg name="launch_motor_control" value="true" />
+    <arg name="launch_arduino" value="true" />
+  </include>
 
 </launch>
