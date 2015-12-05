@@ -44,11 +44,13 @@
     <param name="publish_rate" value="100" />
     <param name="x_min" value="-0.3" />
     <param name="x_max" value="0.3" />
+    <remap from="twist" to="cmd_vel" />
   </node>
 
   <node name="twist_to_motors" pkg="differential_drive" type="twist_to_motors.py" if="$(arg launch_motor_control)">
     <param name="base_width" value="$(arg wheel_separation)" />
     <param name="rate" value="10" />
+    <remap from="twist" to="cmd_vel" />
   </node>
 
   <node name="tf_publisher" pkg="differential_drive" type="diff_tf.py" if="$(arg launch_motor_control)">
