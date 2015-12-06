@@ -9,10 +9,15 @@
     ticks/revolution = gear ratio * 48 cpr = 1124.43
     ticks per meter = ticks/revolution * revolutions/meter = 5965.29
   -->
-  <arg name="ticks_per_meter" value="5965" />
+  <!-- <arg name="ticks_per_meter" value="5965" /> -->
+  <!-- changed for 70 mm wheel dia -->
+  <arg name="ticks_per_meter" value="5113" />
 
   <!-- Wheel separation, in meters. -->
-  <arg name="wheel_separation" value=".203" />
+  <!--  <arg name="wheel_separation" value=".203" />  -->
+  <!-- changed for my wheel separation -->
+  <arg name="wheel_separation" value=".160" />
+
 
   <!-- PID control parameters.
 
@@ -35,8 +40,8 @@
 <!--
   <node name="joystick" pkg="differential_drive" type="virtual_joystick.py">
     <param name="publish_rate" value="100" />
-    <param name="x_min" value="-0.3" />
-    <param name="x_max" value="0.3" />
+    <param name="x_min" value="-1.0" />
+    <param name="x_max" value="1.0" />
     <remap from="twist" to="cmd_vel" />
   </node>
 -->
@@ -55,7 +60,7 @@
     <param name="baud" value="57600" />
     <param name="port" value="$(arg tty)" />
     <param name="control_rate" value="100" />
-    <param name="vtarget_timeout" value="0.1" />
+    <param name="vtarget_timeout" value="1.0" />
     <param name="Kp" value="$(arg Kp)" />
     <param name="Ki" value="$(arg Ki)" />
     <param name="Kd" value="$(arg Kd)" />
