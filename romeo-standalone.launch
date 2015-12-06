@@ -9,10 +9,14 @@
     ticks/revolution = gear ratio * 48 cpr = 1124.43
     ticks per meter = ticks/revolution * revolutions/meter = 5965.29
   -->
-  <arg name="ticks_per_meter" value="5965" />
+  <!-- arg name="ticks_per_meter" value="5965" -->
+  <!-- changed for 70 mm wheel dia -->
+  <arg name="ticks_per_meter" value="5113" />
 
   <!-- Wheel separation, in meters. -->
-  <arg name="wheel_separation" value=".203" />
+  <!-- arg name="wheel_separation" value=".203" -->
+  <!-- changed for my wheel separation -->
+  <arg name="wheel_separation" value=".160" />
 
   <!-- PID control parameters.
 
@@ -26,16 +30,24 @@
     Ki = 2*Kp/Tu = 0.9
     Kd = Kp*Tu / 8 = 0.002976;
   -->
+<!--
   <arg name="Kp" value="0.114" />
   <arg name="Ki" value="0.9" />
   <arg name="Kd" value="0.002976" />
+-->
+<!-- changed for my PID params -->
+  <arg name="Kp" value="0.102" />
+  <arg name="Ki" value="1.457" />
+  <arg name="Kd" value="0.001785" />
+
 
   <param name="ticks_meter" value="$(arg ticks_per_meter)" />
 
   <node name="joystick" pkg="differential_drive" type="virtual_joystick.py">
-    <param name="publish_rate" value="100" />
-    <param name="x_min" value="-0.3" />
-    <param name="x_max" value="0.3" />
+    <param name="publish_rate" value="100" /> 
+<!--    <param name="publish_rate" value="20" />  -->
+    <param name="x_min" value="-1.0" />
+    <param name="x_max" value="1.0" />
     <remap from="twist" to="cmd_vel" />
   </node>
 
@@ -50,10 +62,12 @@
   </node>
 
   <node name="romeo" pkg="rosserial_python" type="serial_node.py">
-    <param name="baud" value="57600" />
+    <param name="baud" value="57600" />  
+<!--    <param name="baud" value="115200" /> -->
     <param name="port" value="$(arg tty)" />
-    <param name="control_rate" value="100" />
-    <param name="vtarget_timeout" value="0.1" />
+    <param name="control_rate" value="100" />  
+<!--    <param name="control_rate" value="20" /> -->
+    <param name="vtarget_timeout" value="1.0" />
     <param name="Kp" value="$(arg Kp)" />
     <param name="Ki" value="$(arg Ki)" />
     <param name="Kd" value="$(arg Kd)" />
