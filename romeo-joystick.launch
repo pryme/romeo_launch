@@ -4,6 +4,7 @@
     <param name="publish_rate" value="100" />
     <param name="x_min" value="-1.0" />
     <param name="x_max" value="1.0" />
+    <remap from="twist" to="cmd_vel" />
   </node>
 
 </launch>
