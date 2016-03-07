@@ -1,7 +1,7 @@
 <launch>
 
-  <arg name="tty" default="/dev/ttyACM0" />
-
+  <!-- arg name="tty" default="/dev/ttyACM0" -->
+  <arg name="tty" default="/dev/ttyAMA0" />
   <!-- The number of encoder ticks per meter.
     d = 0.060  wheel diameter
     revolutions/meter = 1/(d*3.14159)
@@ -11,7 +11,8 @@
   -->
   <!-- <arg name="ticks_per_meter" value="5965" /> -->
   <!-- changed for 70 mm wheel dia -->
-  <arg name="ticks_per_meter" value="5113" />
+  <!-- changed ticks_per_meter from 5113 -->
+  <arg name="ticks_per_meter" value="10226" />
 
   <!-- Wheel separation, in meters. -->
   <!--  <arg name="wheel_separation" value=".203" />  -->
