@@ -20,23 +20,18 @@
 
   <!-- PID control parameters.
 
-    These were determined using the Good-Gain method.
-    See http://home.hit.no/~hansha/documents/control/theory/tuning_pid_controller.pdf.
-    Using an initial Kp0=0.6, the time between the first overshoot and the
-    first undershoot was found to be about Tou=0.144 sec.
+    These were determined using the Ziegler-Nichols method.
 
-    The Good-Gain recommendations are, then to set:
-        Kp = 80% * Kp0 = 0.048
-        Ti = 1.5 * Tou = 0.215
-        Td = Ti/4 = 0.0538
+const float Ku = .15;
+const float Tu = .1142857143;
 
-    where the constants are derived from the time constants as follows:
-        Ki = Kp0/Ti
-        Kd = Kp0*Td
+const float Kp = 0.6*Ku;
+const float Ki = 2*Kp/Tu;
+const float Kd = Kp*Tu/8;
   -->
-  <arg name="Kp" value="0.048" />
-  <arg name="Ki" value="0.279" />
-  <arg name="Kd" value="0.00323" />
+  <arg name="Kp" value="0.09" />
+  <arg name="Ki" value="1.575" />
+  <arg name="Kd" value=".001286" />
 
   <param name="ticks_meter" value="$(arg ticks_per_meter)" />
 
@@ -58,13 +53,13 @@
   </node>
 
   <node name="romeo" pkg="rosserial_python" type="serial_node.py" if="$(arg launch_arduino)">
-    <param name="baud" value="57600" />
-    <param name="port" value="$(arg tty)" />
-    <param name="control_rate" value="100" />
-    <param name="vtarget_timeout" value="0.1" />
-    <param name="Kp" value="$(arg Kp)" />
-    <param name="Ki" value="$(arg Ki)" />
-    <param name="Kd" value="$(arg Kd)" />
+    <param name="baud" value="57600" type="int" />
+    <param name="port" value="$(arg tty)" type="string" />
+    <param name="control_rate" value="100" type="int" />
+    <param name="vtarget_timeout" value="0.1" type="double" />
+    <param name="Kp" value="$(arg Kp)" type="double" />
+    <param name="Ki" value="$(arg Ki)" type="double" />
+    <param name="Kd" value="$(arg Kd)" type="double" />
   </node>
 
 </launch>
