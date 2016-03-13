@@ -1,7 +1,7 @@
 <launch>
 
-  <!-- arg name="tty" default="/dev/ttyACM0" -->
-  <arg name="tty" default="/dev/ttyAMA0" />
+  <arg name="tty" default="/dev/ttyACM0" />
+  <!-- arg name="tty" default="/dev/ttyAMA0" -->
   <!-- The number of encoder ticks per meter.
     d = 0.060  wheel diameter
     revolutions/meter = 1/(d*3.14159)
@@ -11,8 +11,8 @@
   -->
   <!-- <arg name="ticks_per_meter" value="5965" /> -->
   <!-- changed for 70 mm wheel dia -->
-  <!-- changed ticks_per_meter from 5113 -->
-  <arg name="ticks_per_meter" value="10226" />
+  <!-- changed ticks_per_meter from 10226 -->
+  <arg name="ticks_per_meter" value="5113" />
 
   <!-- Wheel separation, in meters. -->
   <!--  <arg name="wheel_separation" value=".203" />  -->
@@ -40,7 +40,7 @@
 
 <!--
   <node name="joystick" pkg="differential_drive" type="virtual_joystick.py">
-    <param name="publish_rate" value="100" />
+    <param name="publish_" value="100" />
     <param name="x_min" value="-1.0" />
     <param name="x_max" value="1.0" />
     <remap from="twist" to="cmd_vel" />
@@ -58,9 +58,9 @@
   </node>
 
   <node name="romeo" pkg="rosserial_python" type="serial_node.py">
-    <param name="baud" value="57600" />
+    <param name="baud" value="115200" />
     <param name="port" value="$(arg tty)" />
-    <param name="control_rate" value="100" />
+    <param name="control_rate" value="60" />
     <param name="vtarget_timeout" value="0.3" />
     <param name="Kp" value="$(arg Kp)" />
     <param name="Ki" value="$(arg Ki)" />
