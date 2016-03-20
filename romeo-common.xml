@@ -4,16 +4,18 @@
   <arg name="launch_motor_control" />
   <arg name="launch_arduino" />
 
-  <arg name="tty" default="$(optenv ARDUINO_TTY /dev/ttyACM0)" />
+  <arg name="tty" default="$(optenv ARDUINO_TTY /dev/ttyAMA0)" />
 
   <!-- The number of encoder ticks per meter.
-    d = 0.060  wheel diameter
+    d = 0.070  wheel diameter
     revolutions/meter = 1/(d*3.14159)
     gear ratio = 46.8512 : 1 (from Pololu web site)
     ticks/revolution = gear ratio * 48 cpr = 2248.8576
-    ticks per meter = ticks/revolution * revolutions/meter = 11930.57
+    ticks per meter = ticks/revolution * revolutions/meter = 10226
+    if both 'A' and 'B' encoder edges are used.
+    Or 5113 ticks/meter if only 'A' edges are used.
   -->
-  <arg name="ticks_per_meter" value="11931" />
+  <arg name="ticks_per_meter" value="5113" />
 
   <!-- Wheel separation, in meters. -->
   <arg name="wheel_separation" value=".203" />
