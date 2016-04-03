@@ -1,0 +1,17 @@
+<launch>
+
+  <include file="$(find romeo_launch)/romeo-common.xml">
+    <arg name="launch_joystick" value="false" />
+    <arg name="launch_motor_control" value="true" />
+    <arg name="launch_arduino" value="true" />
+  </include>
+
+  <node name="nav_square" pkg="rbx1_nav" type="nav_square.py" >
+    <param name="linear_speed" value="0.2" />
+    <param name="angular_speed" value="-0.7" />
+    <param name="angular_tolerance" value="0.0" />
+    <param name="goal_distance" value="1.0" />
+    <param name="goal_angle" value="1.570795" />
+  </node>
+
+</launch>

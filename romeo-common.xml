@@ -46,19 +46,23 @@ const float Kd = Kp*Tu/8;
 
   <node name="twist_to_motors" pkg="differential_drive" type="twist_to_motors.py" if="$(arg launch_motor_control)">
     <param name="base_width" value="$(arg wheel_separation)" />
-    <param name="rate" value="10" />
+    <param name="rate" value="50" />
     <remap from="twist" to="cmd_vel" />
   </node>
 
   <node name="tf_publisher" pkg="differential_drive" type="diff_tf.py" if="$(arg launch_motor_control)">
     <param name="base_width" value="$(arg wheel_separation)" />
+    <param name="rate" value="50" />
+    <param name="ticks_offset" value="0" type="double" />
+    <param name="calib_lin" value="1.000" type="double" />
+    <param name="calib_ang" value="1.00" type="double" />
   </node>
 
   <node name="romeo" pkg="rosserial_python" type="serial_node.py" if="$(arg launch_arduino)">
     <param name="baud" value="57600" type="int" />
     <param name="port" value="$(arg tty)" type="string" />
     <param name="control_rate" value="100" type="int" />
-    <param name="vtarget_timeout" value="0.1" type="double" />
+    <param name="vtarget_timeout" value="0.5" type="double" />
     <param name="Kp" value="$(arg Kp)" type="double" />
     <param name="Ki" value="$(arg Ki)" type="double" />
     <param name="Kd" value="$(arg Kd)" type="double" />
